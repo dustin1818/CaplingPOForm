@@ -1,4 +1,4 @@
-import React from "react";
+import SearchInput from "../components/SearchInput";
 
 const Card = () => {
   return (
@@ -34,6 +34,7 @@ const Card = () => {
           </svg>
         </button>
       </div>
+      <SearchInput />
     </div>
   );
 };
