@@ -1,4 +1,5 @@
 import SearchInput from "../components/SearchInput";
+import ProductSelected from "./ProductSelected";
 import SupplierList from "./SupplierList";
 
 const Card = () => {
@@ -40,6 +41,8 @@ const Card = () => {
       </div>
       <hr style={{ marginTop: "24px" }} />
       <SupplierList />
+      <hr style={{ marginTop: "24px" }} />
+      <ProductSelected />
     </div>
   );
 };
