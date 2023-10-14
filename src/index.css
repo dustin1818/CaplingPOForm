@@ -17,15 +17,30 @@ input {
   outline: none;
 }
 
+hr {
+  border: solid 1px #e5e5e5;
+}
+
+p {
+  font-size: 0.875rem;
+  line-height: 16px;
+  color: #3e4760;
+}
+
 .card {
   width: 100%;
   max-width: 751px;
   margin: auto;
-  height: 100%;
+  height: 662px;
   border-radius: 10px;
   box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.1);
-  padding: 20px 32px;
+  padding: 20px 0px;
   border: 1px solid #c4c4c4;
+  overflow: hidden;
+}
+
+.card_upper {
+  padding: 0 20px;
 }
 
 .card_heading {
@@ -57,4 +72,16 @@ input {
   font-size: 0.875rem;
   line-height: 22px;
   color: #c4c4c4;
+}
+
+.supplier_list_container {
+  padding: 0 40px;
+  overflow-y: scroll;
+}
+
+.supplier_list_container_name_wrapper_inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 15px 10px 15px;
 }
