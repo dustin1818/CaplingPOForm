@@ -1,8 +1,13 @@
+import { useState } from "react";
 import SearchInput from "../components/SearchInput";
 import ProductSelected from "./ProductSelected";
 import SupplierList from "./SupplierList";
+import suppliers from "../json/suppliers";
+import products from "../json/products";
 
 const Card = () => {
+  const [supplierList, setSupplierList] = useState(suppliers);
+  const [productsList, setProductsList] = useState(products);
   return (
     <div className="card">
       <div className="card_upper">
@@ -40,7 +45,7 @@ const Card = () => {
         <SearchInput />
       </div>
       <hr style={{ marginTop: "24px" }} />
-      <SupplierList />
+      <SupplierList supplierList={supplierList} productsList={productsList} />
       <hr style={{ marginTop: "24px" }} />
       <ProductSelected />
     </div>
