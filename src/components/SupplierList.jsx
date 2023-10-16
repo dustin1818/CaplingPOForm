@@ -2,13 +2,15 @@ import { useState } from "react";
 
 const SupplierList = ({ supplierList, productsList }) => {
   let supplierProducts;
-  const [selected, setSelected] = useState(false);
+  const [selected, setSelected] = useState(0);
   const getSupplierProduct = (id) => {
     productsList.data.filter((product) =>
       product.supplierId === id ? (supplierProducts = product) : null
     );
-    setSelected(true);
-    console.log("works");
+    const productID = productsList.data.find((product) =>
+      product.supplierId === id ? (supplierProducts = product) : null
+    );
+    setSelected(productID.supplierId);
   };
   return (
     <div className="supplier_list_container">
@@ -17,7 +19,7 @@ const SupplierList = ({ supplierList, productsList }) => {
           supplierList.map((supplier) => (
             <div
               className={`supplier_list_container_name_wrapper ${
-                selected ? "selected" : ""
+                selected === supplier.id ? "selected" : ""
               }`}
               key={supplier.id}
               onClick={() => getSupplierProduct(supplier.id)}
@@ -33,14 +35,20 @@ const SupplierList = ({ supplierList, productsList }) => {
                 >
                   <path
                     d="M5.625 11.25L9.375 7.5L5.625 3.75"
-                    stroke="#C4C4C4"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                    stroke={selected === supplier.id ? "#ffffff" : "#C4C4C4"}
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
                   />
                 </svg>
               </div>
-              <hr />
+              <hr
+                style={
+                  selected === supplier.id
+                    ? { border: "solid 1px #2f8df8fc" }
+                    : { border: "solid 1px #e5e5e5" }
+                }
+              />
             </div>
           ))}
       </div>
