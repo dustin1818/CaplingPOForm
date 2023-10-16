@@ -52,7 +52,7 @@ p {
   width: 100%;
   max-width: 751px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
 .search_input_container {
@@ -70,49 +70,6 @@ p {
   font-size: 0.875rem;
   line-height: 22px;
   color: #c4c4c4;
-}
-
-.supplier_list_container {
-  padding: 20px 20px 0px 20px;
-}
-
-.supplier_list_container_name {
-  height: 150px;
-  overflow: hidden;
-  overflow-y: scroll;
-  padding: 0 20px;
-}
-
-.supplier_list_container_name::-webkit-scrollbar {
-  width: 9px;
-}
-
-.supplier_list_container_name::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0px 0px 60px #f5f5f5;
-  border-radius: 7px;
-}
-.supplier_list_container_name::-webkit-scrollbar-thumb {
-  background-color: #7b7b7b;
-  border-radius: 7px;
-}
-
-.supplier_list_container_name_wrapper {
-  background-color: #ffffff;
-  padding: 20px 20px 0px 0px;
-}
-
-.supplier_list_container_name_wrapper.selected,
-.supplier_list_container_name_wrapper.selected p {
-  background-color: #2f8df8fc;
-  color: #ffffff;
-}
-
-.supplier_list_container_name_wrapper_inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  cursor: pointer;
 }
 
 .card_bottom {
@@ -141,4 +98,65 @@ p {
   text-transform: uppercase;
   font-family: "Segoe UI", sans-serif !important;
   background: #e5e5e5;
+}
+
+.cards-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.cards-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 650ms, transform 650ms;
+}
+.cards-exit {
+  opacity: 1;
+}
+.cards-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 650ms, transform 650ms;
+}
+
+.supplier_list_container {
+  padding: 20px 20px 0px 20px;
+}
+
+.supplier_list_container_name {
+  height: 150px;
+  overflow: hidden;
+  overflow-y: scroll;
+  padding: 0 20px;
+}
+
+.supplier_list_container_name::-webkit-scrollbar {
+  width: 9px;
+}
+
+.supplier_list_container_name::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0px 0px 60px #f5f5f5;
+  border-radius: 7px;
+}
+.supplier_list_container_name::-webkit-scrollbar-thumb {
+  background-color: #7b7b7b;
+  border-radius: 7px;
+}
+
+.supplier_list_container_name_wrapper {
+  background-color: #ffffff;
+  padding: 10px 20px 0px 20px;
+}
+
+.supplier_list_container_name_wrapper.selected,
+.supplier_list_container_name_wrapper.selected p {
+  background-color: #2f8df8fc;
+  color: #ffffff;
+}
+
+.supplier_list_container_name_wrapper_inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  cursor: pointer;
 }
