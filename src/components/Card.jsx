@@ -158,7 +158,7 @@ const Card = () => {
                 </svg>
               </button>
             </div>
-            <SearchInput />
+            <SearchInput openModal={openModal} />
           </div>
           <hr style={{ marginTop: "24px" }} />
           <SupplierList
