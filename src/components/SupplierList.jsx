@@ -1,16 +1,24 @@
 import { useState } from "react";
 
-const SupplierList = ({ supplierList, productsList }) => {
+const SupplierList = ({ supplierList, productsList, setOpenModal }) => {
   let supplierProducts;
   const [selected, setSelected] = useState(0);
   const getSupplierProduct = (id) => {
     productsList.data.filter((product) =>
       product.supplierId === id ? (supplierProducts = product) : null
     );
-    const productID = productsList.data.find((product) =>
-      product.supplierId === id ? (supplierProducts = product) : null
+    productsList.data.find((product) =>
+      product.supplierId === id ? setSelected(product.supplierId) : null
     );
-    setSelected(productID.supplierId);
+
+    setTimeout(() => {
+      setOpenModal({
+        modalName: supplierList.map((supplier) =>
+          supplier.id === id ? supplier.name : ""
+        ),
+        open: true,
+      });
+    }, 300);
   };
   return (
     <div className="supplier_list_container">
@@ -36,9 +44,9 @@ const SupplierList = ({ supplierList, productsList }) => {
                   <path
                     d="M5.625 11.25L9.375 7.5L5.625 3.75"
                     stroke={selected === supplier.id ? "#ffffff" : "#C4C4C4"}
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 </svg>
               </div>
