@@ -5,7 +5,7 @@ const SupplierList = ({ supplierList, productsList, setOpenModal }) => {
   const [selected, setSelected] = useState(0);
   const getSupplierProduct = (id) => {
     productsList.data.filter((product) =>
-      product.supplierId === id ? (supplierProducts = product) : null
+      product.supplierId === id ? console.log(product) : null
     );
     productsList.data.find((product) =>
       product.supplierId === id ? setSelected(product.supplierId) : null
