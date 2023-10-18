@@ -1,12 +1,26 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { FormContext } from "../context/FormContext";
 
-const SupplierList = ({ supplierList, productsList, setOpenModal }) => {
-  let supplierProducts;
+const SupplierList = () => {
+  const {
+    supplierList,
+    productsList,
+    setOpenModal,
+    chosenProductList,
+    setChosenProductList,
+  } = useContext(FormContext);
   const [selected, setSelected] = useState(0);
+  // get supplier products
   const getSupplierProduct = (id) => {
-    productsList.data.filter((product) =>
-      product.supplierId === id ? console.log(product) : null
+    productsList.data.map((product) =>
+      product.supplierId === id
+        ? setTimeout(() => {
+            setChosenProductList(product);
+          }, 100)
+        : null
     );
+
+    // find similar supplier - product id
     productsList.data.find((product) =>
       product.supplierId === id ? setSelected(product.supplierId) : null
     );
@@ -20,6 +34,11 @@ const SupplierList = ({ supplierList, productsList, setOpenModal }) => {
       });
     }, 300);
   };
+
+  setTimeout(() => {
+    console.log(chosenProductList);
+  }, 500);
+
   return (
     <div className="supplier_list_container">
       <div className="supplier_list_container_name">
@@ -33,7 +52,7 @@ const SupplierList = ({ supplierList, productsList, setOpenModal }) => {
               onClick={() => getSupplierProduct(supplier.id)}
             >
               <div className="supplier_list_container_name_wrapper_inner">
-                <p>{supplier.name}</p>
+                <p>{supplier.id}</p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="15"

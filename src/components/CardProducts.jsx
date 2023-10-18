@@ -3,6 +3,7 @@ import ProductSelected from "./ProductSelected";
 import SupplierList from "./SupplierList";
 import { useContext } from "react";
 import { FormContext } from "../context/FormContext";
+import ProductList from "./ProductList";
 
 const CardProducts = () => {
   const {
@@ -111,7 +112,7 @@ const CardProducts = () => {
           <SearchInput openModal={openModal} />
         </div>
         <hr style={{ marginTop: "24px" }} />
-        <SupplierList supplierList={supplierList} productsList={productsList} />
+        <ProductList />
         <hr style={{ marginTop: "24px" }} />
         <ProductSelected />
       </div>
