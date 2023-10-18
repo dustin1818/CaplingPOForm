@@ -6,25 +6,18 @@ const SupplierList = () => {
     supplierList,
     productsList,
     setOpenModal,
-    chosenProductList,
-    setChosenProductList,
+    setProductsList
   } = useContext(FormContext);
   const [selected, setSelected] = useState(0);
   // get supplier products
   const getSupplierProduct = (id) => {
-    productsList.data.map((product) =>
-      product.supplierId === id
-        ? setTimeout(() => {
-            setChosenProductList(product);
-          }, 100)
-        : null
-    );
-
-    // find similar supplier - product id
+    setProductsList((prevState) => {
+      const productID = prevState?.data.filter((prodId) => id === prodId.supplierId);
+      return productID
+    })
     productsList.data.find((product) =>
       product.supplierId === id ? setSelected(product.supplierId) : null
     );
-
     setTimeout(() => {
       setOpenModal({
         modalName: supplierList.map((supplier) =>
@@ -34,10 +27,6 @@ const SupplierList = () => {
       });
     }, 300);
   };
-
-  setTimeout(() => {
-    console.log(chosenProductList);
-  }, 500);
 
   return (
     <div className="supplier_list_container">
@@ -52,7 +41,7 @@ const SupplierList = () => {
               onClick={() => getSupplierProduct(supplier.id)}
             >
               <div className="supplier_list_container_name_wrapper_inner">
-                <p>{supplier.id}</p>
+                <p>{supplier.name}</p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="15"

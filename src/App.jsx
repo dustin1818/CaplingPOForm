@@ -8,7 +8,6 @@ import { FormContext } from "./context/FormContext";
 function App() {
   const [supplierList, setSupplierList] = useState(suppliers);
   const [productsList, setProductsList] = useState(products);
-  const [chosenProductList, setChosenProductList] = useState([]);
   const [openModal, setOpenModal] = useState({
     modalName: "",
     open: false,
@@ -23,8 +22,6 @@ function App() {
           setSupplierList,
           productsList,
           setProductsList,
-          chosenProductList,
-          setChosenProductList,
           setOpenModal,
           nodeRef,
           CSSTransition,
