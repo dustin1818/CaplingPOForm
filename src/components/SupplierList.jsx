@@ -2,18 +2,14 @@ import { useContext, useState } from "react";
 import { FormContext } from "../context/FormContext";
 
 const SupplierList = () => {
-  const {
-    supplierList,
-    productsList,
-    setOpenModal,
-    setProductsList
-  } = useContext(FormContext);
-  const [selected, setSelected] = useState (0);
+  const { supplierList, productsList, setOpenModal, setProductsList } =
+    useContext(FormContext);
+  const [selected, setSelected] = useState(0);
   // get supplier products
   const getSupplierProduct = (id) => {
     productsList.data.find((product) =>
-    product.supplierId === id ? setSelected(product.supplierId) : null
-  );
+      product.supplierId === id ? setSelected(product.supplierId) : null
+    );
     setTimeout(() => {
       setOpenModal({
         modalName: supplierList.map((supplier) =>
@@ -21,12 +17,13 @@ const SupplierList = () => {
         ),
         open: true,
       });
-    setProductsList((prevState) => {
-      const productID = prevState?.data.filter((prodId) => id === prodId.supplierId);
-      return productID
-    })
-    },350)
-
+      setProductsList((prevState) => {
+        const productID = prevState?.data.filter(
+          (prodId) => id === prodId.supplierId
+        );
+        return productID;
+      });
+    }, 350);
   };
 
   return (

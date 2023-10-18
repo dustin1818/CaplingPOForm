@@ -13,6 +13,8 @@ function App() {
     open: false,
   });
   const nodeRef = useRef(null);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [productQuantity, setProductQuantity] = useState(0);
   return (
     <div style={{ padding: "50px" }}>
       <FormContext.Provider
@@ -25,6 +27,10 @@ function App() {
           setOpenModal,
           nodeRef,
           CSSTransition,
+          isDisabled,
+          setIsDisabled,
+          productQuantity,
+          setProductQuantity,
         }}
       >
         <CardSuppliers />

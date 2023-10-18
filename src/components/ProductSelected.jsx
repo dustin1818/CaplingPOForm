@@ -1,15 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
+import { FormContext } from "../context/FormContext";
 
 const ProductSelected = () => {
+  const { isDisabled, productQuantity } = useContext(FormContext);
   return (
     <div className="card_bottom">
-      <div className="card_bottom_btn ">
-        <p>0 product selected</p>
-      </div>
-
+      <button
+        className={isDisabled ? "card_bottom_btn" : "card_bottom_btn selected"}
+        disabled={isDisabled}
+      >
+        {productQuantity} product selected
+      </button>
       <div className="card_bottom_btn_container">
         <button className="card_bottom_btn cancel">Cancel</button>
-        <button className="card_bottom_btn add" disabled>
+        <button
+          className={
+            isDisabled ? "card_bottom_btn add" : "card_bottom_btn add selected"
+          }
+          disabled={isDisabled}
+        >
           ADD
         </button>
       </div>
