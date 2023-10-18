@@ -13,7 +13,7 @@ const CardProducts = () => {
     setProductsList,
     nodeRef,
   } = useContext(FormContext);
-  const goBack = () => {
+  const goBack = () => { 
     setOpenModal({
       name: "Browse",
       open: false,

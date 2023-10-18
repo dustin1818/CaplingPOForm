@@ -8,7 +8,7 @@ const SupplierList = () => {
     setOpenModal,
     setProductsList
   } = useContext(FormContext);
-  const [selected, setSelected] = useState(0);
+  const [selected, setSelected] = useState (0);
   // get supplier products
   const getSupplierProduct = (id) => {
     productsList.data.find((product) =>
