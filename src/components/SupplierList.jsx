@@ -11,13 +11,9 @@ const SupplierList = () => {
   const [selected, setSelected] = useState(0);
   // get supplier products
   const getSupplierProduct = (id) => {
-    setProductsList((prevState) => {
-      const productID = prevState?.data.filter((prodId) => id === prodId.supplierId);
-      return productID
-    })
     productsList.data.find((product) =>
-      product.supplierId === id ? setSelected(product.supplierId) : null
-    );
+    product.supplierId === id ? setSelected(product.supplierId) : null
+  );
     setTimeout(() => {
       setOpenModal({
         modalName: supplierList.map((supplier) =>
@@ -25,7 +21,12 @@ const SupplierList = () => {
         ),
         open: true,
       });
-    }, 300);
+    setProductsList((prevState) => {
+      const productID = prevState?.data.filter((prodId) => id === prodId.supplierId);
+      return productID
+    })
+    },350)
+
   };
 
   return (

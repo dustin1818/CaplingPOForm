@@ -1,19 +1,25 @@
 import SearchInput from "./SearchInput";
 import ProductSelected from "./ProductSelected";
-import SupplierList from "./SupplierList";
 import { useContext } from "react";
 import { FormContext } from "../context/FormContext";
 import ProductList from "./ProductList";
+import products from "../json/products";
 
 const CardProducts = () => {
   const {
     openModal,
-    supplierList,
-    productsList,
     setOpenModal,
     CSSTransition,
+    setProductsList,
     nodeRef,
   } = useContext(FormContext);
+  const goBack = () => {
+    setOpenModal({
+      name: "Browse",
+      open: false,
+    })
+    setProductsList(products)
+  }
   return (
     <CSSTransition
       in={openModal.open}
@@ -47,12 +53,7 @@ const CardProducts = () => {
             <button
               className="card_heading_icon_container_btn_left_arrow"
               style={{ cursor: "pointer" }}
-              onClick={() =>
-                setOpenModal({
-                  name: "Browse",
-                  open: false,
-                })
-              }
+              onClick={goBack}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
