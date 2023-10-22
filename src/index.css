@@ -123,26 +123,42 @@ p {
   border-radius: 7px;
 }
 
-.supplier_list_container_name_wrapper,
+.supplier_list_container_name_wrapper {
+  background-color: #ffffff;
+  padding: 10px 0px 0px 10px;
+  gap: 10px;
+  display: grid;
+}
 .product_list_container_name_wrapper {
   background-color: #ffffff;
   padding: 10px 0px 0px 0px;
 }
 
+.product_list_container_name_wrapper.selected {
+  background-color: #f5f5f5;
+  padding: 10px;
+}
+
 .supplier_list_container_name_wrapper.selected,
-.supplier_list_container_name_wrapper.selected p,
-.product_list_container_name_wrapper.selected,
-.product_list_container_name_wrapper.selected p {
+.supplier_list_container_name_wrapper.selected p {
   background-color: #2f8df8fc;
   color: #ffffff;
 }
 
-.supplier_list_container_name_wrapper_inner,
+.supplier_list_container_name_wrapper_inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding-left: 10px;
+}
+
 .product_list_container_name_wrapper_inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  padding-top: 10px;
   cursor: pointer;
 }
 
@@ -156,6 +172,19 @@ p {
   text-transform: capitalize;
 }
 
+.product_list_container_name_wrapper_inner_div2 {
+  padding-left: 15px 0px 15px 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.product_list_container_name_wrapper_inner_div2 input {
+  width: auto;
+  border: solid 3px #c4c4c4;
+}
+
 .product-text {
   color: #3e4760;
 }
@@ -164,6 +193,27 @@ p {
   text-transform: uppercase;
   font-size: 12px;
   color: #7b7b7b;
+}
+
+.product-number-input {
+  border: solid 1px #c4c4c4;
+  border-radius: 3px;
+  padding: 3px 9px;
+  width: 68px;
+  text-align: end;
+  color: #c4c4c4;
+  font-family: Overpass;
+  font-size: 16px;
+}
+
+.product-number-input.active {
+  border: solid 1px rgba(47, 141, 248, 0.99);
+  color: #0d0d0d;
+}
+.product-number-input.active:focus {
+  border: solid 1px rgba(47, 141, 248, 0.99);
+  color: #0d0d0d;
+  box-shadow: 0 0 10px rgba(47, 141, 248, 0.99);
 }
 
 .card_bottom {
