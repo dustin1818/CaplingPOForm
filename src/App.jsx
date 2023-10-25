@@ -14,7 +14,7 @@ function App() {
   });
   const nodeRef = useRef(null);
   const [isDisabled, setIsDisabled] = useState(true);
-  const [productQuantity, setProductQuantity] = useState(0);
+  const [productQuantity, setProductQuantity] = useState([]);
   return (
     <div style={{ padding: "50px" }}>
       <FormContext.Provider

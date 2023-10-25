@@ -4,14 +4,14 @@ import Img from "../assets/image.svg";
 import downArrow from "../assets/chevron-down.png";
 
 const ProductList = () => {
-  const { productsList, setIsDisabled } = useContext(FormContext);
+  const { productsList, setIsDisabled, productQuantity, setProductQuantity } =
+    useContext(FormContext);
   const [selected, setSelected] = useState([]);
 
   // state count 0
   const [childProducts, setChildProducts] = useState([]);
   const [inputValue, setInputValue] = useState([]);
   const [isChecked, setIsChecked] = useState([]);
-  const [productListSelected, setProductListSelected] = useState([]);
 
   const getProduct = (id) => {
     productsList.map((products) => {
@@ -44,16 +44,26 @@ const ProductList = () => {
     });
   };
 
-  const selectInput = (value, index,prod) => {
-    setIsDisabled((previousState) => previousState=false);
+  const selectInput = (value, index, prod) => {
+    setIsDisabled((previousState) => (previousState = false));
     setIsChecked((prevState) => {
       const _previousState = [...prevState];
       if (value !== null) {
         _previousState[index] = value;
-        setProductListSelected([
-          ...productListSelected,
-          prod
-        ])
+      } else {
+        _previousState[index] = !_previousState[index];
+      }
+      return _previousState;
+    });
+  };
+
+  const setInputActive = (value, index, prod) => {
+    setIsDisabled((previousState) => (previousState = false));
+    setIsChecked((prevState) => {
+      const _previousState = [...prevState];
+      if (value !== null) {
+        _previousState[index] = value;
+        setProductQuantity([...productQuantity, prod]);
       } else {
         _previousState[index] = !_previousState[index];
       }
@@ -69,7 +79,6 @@ const ProductList = () => {
     });
   };
 
-  console.log(productListSelected)
   return (
     <div className="product_list_container">
       <div className="product_list_container_name">
@@ -177,9 +186,11 @@ const ProductList = () => {
                                     placeholder="1"
                                     onChange={(e) => {
                                       updateValue(e.target.value, index);
-                                      selectInput(true, index)
+                                      selectInput(true, index);
                                     }}
-                                    onSelect={()=> selectInput(true, index,prod)}
+                                    onSelect={() =>
+                                      setInputActive(true, index, prod)
+                                    }
                                   />
                                 </div>
                                 <hr
