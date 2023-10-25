@@ -1,0 +1,7 @@
+Objectives: 
+
+- Make input value default 1,
+- Save the input value along with the state
+- Add toaster - added message
+- Close Modal
+- 
