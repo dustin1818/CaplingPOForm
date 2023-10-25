@@ -44,13 +44,16 @@ const ProductList = () => {
     });
   };
 
-  const selectInput = (value, index) => {
-    setIsDisabled((previousState) => !previousState);
+  const selectInput = (value, index,prod) => {
+    setIsDisabled((previousState) => previousState=false);
     setIsChecked((prevState) => {
       const _previousState = [...prevState];
-      console.log(_previousState);
       if (value !== null) {
         _previousState[index] = value;
+        setProductListSelected([
+          ...productListSelected,
+          prod
+        ])
       } else {
         _previousState[index] = !_previousState[index];
       }
@@ -58,7 +61,7 @@ const ProductList = () => {
     });
   };
 
-  const selectValue = (value, index) => {
+  const updateValue = (value, index) => {
     setInputValue((prevState) => {
       const _previousState = [...prevState];
       _previousState[index] = value;
@@ -66,6 +69,7 @@ const ProductList = () => {
     });
   };
 
+  console.log(productListSelected)
   return (
     <div className="product_list_container">
       <div className="product_list_container_name">
@@ -172,9 +176,10 @@ const ProductList = () => {
                                     value={inputValue[index]}
                                     placeholder="1"
                                     onChange={(e) => {
-                                      selectValue(e.target.value, index);
-                                      selectInput(true, index);
+                                      updateValue(e.target.value, index);
+                                      selectInput(true, index)
                                     }}
+                                    onSelect={()=> selectInput(true, index,prod)}
                                   />
                                 </div>
                                 <hr
