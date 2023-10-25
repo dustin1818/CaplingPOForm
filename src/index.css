@@ -136,7 +136,6 @@ p {
 
 .product_list_container_name_wrapper.selected {
   background-color: #f5f5f5;
-  padding: 10px;
 }
 
 .supplier_list_container_name_wrapper.selected,
@@ -157,9 +156,12 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
-  padding-top: 10px;
+  padding: 10px;
   cursor: pointer;
+}
+
+.product_list_container_name_wrapper_inner.active {
+  background: #e3f1fe;
 }
 
 .product_list_container_name_wrapper_inner_div1 {
@@ -173,16 +175,37 @@ p {
 }
 
 .product_list_container_name_wrapper_inner_div2 {
-  padding-left: 15px 0px 15px 30px;
+  padding: 15px 0px 15px 30px;
   display: flex;
   align-items: center;
   gap: 20px;
   width: 100%;
 }
 
-.product_list_container_name_wrapper_inner_div2 input {
-  width: auto;
-  border: solid 3px #c4c4c4;
+.product_list_checkbox[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid #7b7b7b;
+}
+
+.product_list_checkbox.active[type="checkbox"]:checked {
+  background-color: rgba(47, 141, 248, 0.99);
+  border: 1px solid rgba(47, 141, 248, 0.99);
+}
+
+.product_list_checkbox.active[type="checkbox"]:checked::before {
+  content: "\2714";
+  font-size: 12px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .product-text {
@@ -191,7 +214,7 @@ p {
 
 .product-subtext {
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #7b7b7b;
 }
 
@@ -203,7 +226,14 @@ p {
   text-align: end;
   color: #c4c4c4;
   font-family: Overpass;
-  font-size: 16px;
+  font-size: 1rem;
+  margin-right: 30px;
+}
+
+.product-number-input::-webkit-inner-spin-button,
+.product-number-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .product-number-input.active {

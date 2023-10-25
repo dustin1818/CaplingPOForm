@@ -1,68 +1,96 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { FormContext } from "../context/FormContext";
 import Img from "../assets/image.svg";
 import downArrow from "../assets/chevron-down.png";
 
 const ProductList = () => {
-  const {
-    productsList,
-    supplierList,
-    setIsDisabled,
-    setProductQuantity,
-    setSupplierList,
-  } = useContext(FormContext);
-  const [selected, setSelected] = useState({
-    id: 0,
-    display: false,
-  });
+  const { productsList, setIsDisabled } = useContext(FormContext);
+  const [selected, setSelected] = useState([]);
 
+  // state count 0
   const [childProducts, setChildProducts] = useState([]);
-  const [inputValue, setInputValue] = useState(1);
-  const [isChecked, setIsChecked] = useState(false);
-  const [subProdID, setSubProdID] = useState(0);
+  const [inputValue, setInputValue] = useState([]);
+  const [isChecked, setIsChecked] = useState([]);
   const [productListSelected, setProductListSelected] = useState([]);
 
   const getProduct = (id) => {
-    setIsDisabled((prevState) => (prevState = false));
     productsList.map((products) => {
       if (products.id === id) {
-        setSelected({ id: id, display: true });
-        setChildProducts((prevState) => (prevState = products.childProducts));
-        // setIsChecked(false);
+        setChildProducts((previousState) => {
+          return [...previousState];
+        });
+        setIsChecked(Array.from({ length: childProducts.length }, () => false));
+        setInputValue(Array.from({ length: childProducts.length }, () => 0));
+        setSelected((_previousState) => {
+          const found = _previousState.find((item) => item.id === id);
+          if (!found) {
+            return productsList.map((item) => {
+              if (item.id === id) {
+                return { id: item.id, display: true };
+              } else {
+                return { id: item.id, display: false };
+              }
+            });
+          }
+          return productsList.map((item) => {
+            if (item.id === id) {
+              return { id: item.id, display: !found.display };
+            } else {
+              return { id: item.id, display: false };
+            }
+          });
+        });
       }
     });
   };
 
-  const selectInput = (prod) => {
-    setIsChecked((prevState) => (prevState = true));
-    childProducts.map((products) => {
-      if (prod.id === products.id) {
-        setSubProdID((prevState) => (prevState = prod.id));
-        setProductQuantity((prevState) => (prevState = prod.quantity));
-        setProductListSelected((prevState) => (prevState = prod));
-        console.log(productListSelected);
+  const selectInput = (value, index) => {
+    setIsDisabled((previousState) => !previousState);
+    setIsChecked((prevState) => {
+      const _previousState = [...prevState];
+      console.log(_previousState);
+      if (value !== null) {
+        _previousState[index] = value;
+      } else {
+        _previousState[index] = !_previousState[index];
       }
+      return _previousState;
     });
   };
 
-  // const changeInput = (prod) => {
-  //   console.log("changed");
-  //   // if()
-  // };
+  const selectValue = (value, index) => {
+    setInputValue((prevState) => {
+      const _previousState = [...prevState];
+      _previousState[index] = value;
+      return _previousState;
+    });
+  };
 
-  // console.log(childProducts);
   return (
     <div className="product_list_container">
       <div className="product_list_container_name">
         {Array.isArray(productsList)
-          ? productsList.map((prod) => (
+          ? productsList.map((prod, index) => (
               <div
                 className={`product_list_container_name_wrapper ${
-                  selected.id === prod.id ? "selected" : ""
+                  selected[index]?.id === prod.id ? "selected" : ""
                 }`}
+                style={{
+                  position: "relative",
+                }}
                 key={prod.id}
-                onClick={() => getProduct(prod.id)}
               >
+                <span
+                  style={{
+                    position: "absolute",
+                    background: "transparent",
+                    height: "4rem",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                  }}
+                  onClick={() => getProduct(prod.id)}
+                ></span>
                 <div className="product_list_container_name_wrapper_inner">
                   <div className="product_list_container_name_wrapper_inner_div1">
                     <img src={Img} alt="image.svg" />
@@ -71,7 +99,8 @@ const ProductList = () => {
                       <p className="product-subtext">ID: {prod.id}</p>
                     </div>
                   </div>
-                  {selected.id === prod.id && selected.display === true ? (
+                  {selected[index]?.id === prod.id &&
+                  selected[index]?.display === true ? (
                     <img src={downArrow} alt="chevron-down.png" />
                   ) : (
                     <svg
@@ -83,7 +112,11 @@ const ProductList = () => {
                     >
                       <path
                         d="M5.625 11.25L9.375 7.5L5.625 3.75"
-                        stroke={selected === prod.id ? "#ffffff" : "#C4C4C4"}
+                        stroke={
+                          selected[index]?.id === prod.id
+                            ? "#ffffff"
+                            : "#C4C4C4"
+                        }
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -93,29 +126,26 @@ const ProductList = () => {
                 </div>
                 <hr style={{ border: "solid 1px #e5e5e5" }} />
                 <div>
-                  {selected.id === prod.id && selected.display === true
+                  {selected[index]?.id === prod.id &&
+                  selected[index]?.display === true
                     ? productsList.map((products) =>
                         prod.id === products.id
-                          ? products.childProducts.map((prod) => (
+                          ? products.childProducts.map((prod, index) => (
                               <>
-                                <p>
-                                  isChecked:{" "}
-                                  {isChecked && subProdID === prod.id
-                                    ? true.toString()
-                                    : false.toString()}
-                                </p>
                                 <div
-                                  className="product_list_container_name_wrapper_inner"
+                                  className={`product_list_container_name_wrapper_inner ${
+                                    isChecked[index] ? "active" : ""
+                                  }`}
                                   key={prod.id}
                                 >
                                   <div className="product_list_container_name_wrapper_inner_div2">
                                     <input
+                                      className={`product_list_checkbox ${
+                                        isChecked[index] ? "active" : "null"
+                                      }`}
                                       type="checkbox"
-                                      checked={
-                                        isChecked && subProdID === prod.id
-                                          ? true
-                                          : false
-                                      }
+                                      checked={isChecked[index]}
+                                      onClick={() => selectInput(null, index)}
                                     />
                                     <div className="product_list_container_name_wrapper_inner_div1_holder">
                                       <p
@@ -132,25 +162,28 @@ const ProductList = () => {
                                       </p>
                                     </div>
                                   </div>
-                                  {isChecked ? (
-                                    <input
-                                      className="product-number-input active"
-                                      type="number"
-                                      value={inputValue}
-                                      // onChange={() => changeInput(prod)}
-                                      onClick={() => selectInput(prod)}
-                                    />
-                                  ) : (
-                                    <input
-                                      className="product-number-input"
-                                      type="number"
-                                      value={inputValue}
-                                      // onChange={() => changeInput(prod)}
-                                      onClick={() => selectInput(prod)}
-                                    />
-                                  )}
+                                  <input
+                                    className={
+                                      isChecked[index]
+                                        ? "product-number-input active"
+                                        : "product-number-input"
+                                    }
+                                    type="number"
+                                    value={inputValue[index]}
+                                    placeholder="1"
+                                    onChange={(e) => {
+                                      selectValue(e.target.value, index);
+                                      selectInput(true, index);
+                                    }}
+                                  />
                                 </div>
-                                <hr style={{ border: "solid 1px #e5e5e5" }} />{" "}
+                                <hr
+                                  style={
+                                    isChecked[index]
+                                      ? { border: "solid 1px #FFF" }
+                                      : { border: "solid 1px #e5e5e5" }
+                                  }
+                                />{" "}
                               </>
                             ))
                           : null
