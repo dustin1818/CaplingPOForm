@@ -86,7 +86,10 @@ const ProductList = () => {
           ? productsList.map((prod, index) => (
               <div
                 className={`product_list_container_name_wrapper ${
-                  selected[index]?.id === prod.id ? "selected" : ""
+                  selected[index]?.id === prod.id &&
+                  selected[index]?.display === true
+                    ? "selected"
+                    : ""
                 }`}
                 style={{
                   position: "relative",
@@ -126,7 +129,8 @@ const ProductList = () => {
                       <path
                         d="M5.625 11.25L9.375 7.5L5.625 3.75"
                         stroke={
-                          selected[index]?.id === prod.id
+                          selected[index]?.id === prod.id &&
+                          selected[index]?.display === true
                             ? "#ffffff"
                             : "#C4C4C4"
                         }
