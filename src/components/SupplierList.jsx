@@ -1,10 +1,11 @@
 import { useContext, useState } from "react";
 import { FormContext } from "../context/FormContext";
-
+import { useNavigate } from "react-router-dom";
 const SupplierList = () => {
   const { supplierList, productsList, setOpenModal, setProductsList } =
     useContext(FormContext);
   const [selected, setSelected] = useState(0);
+  const navigate = useNavigate();
   // get supplier products
   const getSupplierProduct = (id) => {
     productsList.data.find((product) =>
@@ -15,7 +16,6 @@ const SupplierList = () => {
         modalName: supplierList.map((supplier) =>
           supplier.id === id ? supplier.name : ""
         ),
-        open: true,
       });
       setProductsList((prevState) => {
         const productID = prevState?.data.filter(
@@ -23,6 +23,7 @@ const SupplierList = () => {
         );
         return productID;
       });
+      navigate("/products");
     }, 350);
   };
 
