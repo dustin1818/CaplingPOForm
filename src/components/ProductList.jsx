@@ -63,7 +63,17 @@ const ProductList = () => {
       const _previousState = [...prevState];
       if (value !== null) {
         _previousState[index] = value;
-        setProductQuantity([...productQuantity, prod]);
+        setProductQuantity(() => {
+          const addedProduct = [...productQuantity, { ...prod, inputValue: 1 }];
+          const productExists = productQuantity.some(
+            (item) => item.id === prod.id
+          );
+          if (productExists) {
+            return productQuantity;
+          } else {
+            return addedProduct;
+          }
+        });
       } else {
         _previousState[index] = !_previousState[index];
       }
@@ -78,6 +88,8 @@ const ProductList = () => {
       return _previousState;
     });
   };
+
+  console.log(productQuantity);
 
   return (
     <div className="product_list_container">

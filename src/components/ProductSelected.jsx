@@ -9,7 +9,7 @@ const ProductSelected = () => {
         className={isDisabled ? "card_bottom_btn" : "card_bottom_btn selected"}
         disabled={isDisabled}
       >
-        {productQuantity.length} product selected
+        {productQuantity?.length} product selected
       </button>
       <div className="card_bottom_btn_container">
         <button className="card_bottom_btn cancel">Cancel</button>
