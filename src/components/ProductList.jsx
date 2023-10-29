@@ -1,17 +1,24 @@
 import { useState, useContext } from "react";
+import { useRef } from "react";
 import { FormContext } from "../context/FormContext";
 import Img from "../assets/image.svg";
 import downArrow from "../assets/chevron-down.png";
 
 const ProductList = () => {
-  const { productsList, setIsDisabled, productQuantity, setProductQuantity } =
-    useContext(FormContext);
-  const [selected, setSelected] = useState([]);
-
+  const {
+    productsList,
+    setIsDisabled,
+    productQuantity,
+    setProductQuantity,
+    selected,
+    setSelected,
+  } = useContext(FormContext);
   // state count 0
   const [childProducts, setChildProducts] = useState([]);
   const [inputValue, setInputValue] = useState([]);
   const [isChecked, setIsChecked] = useState([]);
+
+  const inputRef = useRef(null);
 
   const getProduct = (id) => {
     productsList.map((products) => {
@@ -44,19 +51,6 @@ const ProductList = () => {
     });
   };
 
-  const selectInput = (value, index, prod) => {
-    setIsDisabled((previousState) => (previousState = false));
-    setIsChecked((prevState) => {
-      const _previousState = [...prevState];
-      if (value !== null) {
-        _previousState[index] = value;
-      } else {
-        _previousState[index] = !_previousState[index];
-      }
-      return _previousState;
-    });
-  };
-
   const setInputActive = (value, index, prod) => {
     setIsDisabled((previousState) => (previousState = false));
     setIsChecked((prevState) => {
@@ -64,7 +58,7 @@ const ProductList = () => {
       if (value !== null) {
         _previousState[index] = value;
         setProductQuantity(() => {
-          const addedProduct = [...productQuantity, { ...prod, inputValue: 1 }];
+          const addedProduct = [...productQuantity, { ...prod, inputNum: 1 }];
           const productExists = productQuantity.some(
             (item) => item.id === prod.id
           );
@@ -76,20 +70,32 @@ const ProductList = () => {
         });
       } else {
         _previousState[index] = !_previousState[index];
+        if (_previousState[index] === false) {
+          console.log(false);
+        } else {
+          console.log(true);
+        }
       }
       return _previousState;
     });
   };
 
-  const updateValue = (value, index) => {
+  const updateValue = (value, index, prod) => {
     setInputValue((prevState) => {
       const _previousState = [...prevState];
       _previousState[index] = value;
+      setProductQuantity(
+        productQuantity.map((item) => {
+          if (item.id === prod.id) {
+            return { ...item, inputNum: _previousState[index] };
+          } else {
+            return item;
+          }
+        })
+      );
       return _previousState;
     });
   };
-
-  console.log(productQuantity);
 
   return (
     <div className="product_list_container">
@@ -174,7 +180,9 @@ const ProductList = () => {
                                       }`}
                                       type="checkbox"
                                       checked={isChecked[index]}
-                                      onClick={() => selectInput(null, index)}
+                                      onClick={() =>
+                                        setInputActive(null, index)
+                                      }
                                     />
                                     <div className="product_list_container_name_wrapper_inner_div1_holder">
                                       <p
@@ -198,11 +206,11 @@ const ProductList = () => {
                                         : "product-number-input"
                                     }
                                     type="number"
+                                    ref={inputRef}
                                     value={inputValue[index]}
                                     placeholder="1"
                                     onChange={(e) => {
-                                      updateValue(e.target.value, index);
-                                      selectInput(true, index);
+                                      updateValue(e.target.value, index, prod);
                                     }}
                                     onSelect={() =>
                                       setInputActive(true, index, prod)

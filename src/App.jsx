@@ -15,6 +15,7 @@ function App() {
   const nodeRef = useRef(null);
   const [isDisabled, setIsDisabled] = useState(true);
   const [productQuantity, setProductQuantity] = useState([]);
+  const [selected, setSelected] = useState([]);
   return (
     <div style={{ padding: "50px" }}>
       <FormContext.Provider
@@ -31,6 +32,8 @@ function App() {
           setIsDisabled,
           productQuantity,
           setProductQuantity,
+          selected,
+          setSelected,
         }}
       >
         <CardSuppliers />
