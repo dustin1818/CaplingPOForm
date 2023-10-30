@@ -1,30 +1,29 @@
 import SearchInput from "./SearchInput";
 import ProductSelected from "./ProductSelected";
-import { useContext, useEffect } from "react";
+import { useContext, } from "react";
 import { FormContext } from "../context/FormContext";
-import ProductList from "./ProductList";
-import products from "../json/products";
+import { useNavigate } from "react-router-dom";
+import ChosenProducts from "../components/ChosenProducts"
 
 const CardSelection = () => {
   const {
     openModal,
     setOpenModal,
-    CSSTransition,
-    setProductsList,
-    nodeRef,
-    setProductQuantity,
     productQuantity,
+    setIsDisabled
   } = useContext(FormContext);
+  const navigate = useNavigate();
   const goBack = () => {
     setOpenModal({
       name: "Browse",
       open: false,
     });
-    setProductsList(products);
-    setSelected([]);
-    setProductQuantity([]);
-    console.log(productQuantity);
+    setIsDisabled(true);
+    navigate('/products')
   };
+
+  console.log(productQuantity);
+
   return (
     <>
       {/* card for products  */}
@@ -95,7 +94,7 @@ const CardSelection = () => {
           <SearchInput openModal={openModal} />
         </div>
         <hr style={{ marginTop: "24px" }} />
-        <ProductList />
+        <ChosenProducts />
         <hr style={{ marginTop: "24px" }} />
         <ProductSelected />
       </div>

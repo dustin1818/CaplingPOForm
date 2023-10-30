@@ -1,7 +1,9 @@
 Objectives: 
 
-- Make input value default 1,
-- Save the input value along with the state
-- Add toaster - added message
-- Close Modal
-- 
+- update chosen products layout
+- add delete icon when hover
+- add delete function
+- edit styling of toaster
+- remove unnecessary codes and refactor
+- add cancel function to the x button above
+- add filter/search function

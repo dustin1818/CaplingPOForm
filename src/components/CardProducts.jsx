@@ -7,18 +7,19 @@ import products from "../json/products";
 import { useNavigate } from "react-router-dom";
 
 const CardProducts = () => {
-  const { openModal, setOpenModal, setProductsList, setProductQuantity } =
+  const { openModal, setOpenModal, setProductsList, setProductQuantity,setIsDisabled } =
     useContext(FormContext);
+    const navigate = useNavigate();
   const goBack = () => {
     setOpenModal({
       name: "Browse",
       open: false,
     });
-    const navigate = useNavigate();
     navigate("/");
     setProductsList(products);
     setSelected([]);
     setProductQuantity([]);
+    setIsDisabled(true)
   };
   return (
     <>
