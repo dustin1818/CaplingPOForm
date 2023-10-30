@@ -1,11 +1,32 @@
 import SearchInput from "./SearchInput";
 import ProductSelected from "./ProductSelected";
 import SupplierList from "./SupplierList";
+import products from "../json/products";
 import { useContext } from "react";
 import { FormContext } from "../context/FormContext";
+import { useNavigate } from "react-router-dom";
 
 const CardSuppliers = () => {
-  const { openModal } = useContext(FormContext);
+  const {
+    openModal,
+    setProductsList,
+    setIsDisabled,
+    setOpenModal,
+    setProductQuantity,
+    setSelected,
+  } = useContext(FormContext);
+  const cancelProduct = () => {
+    const navigate = useNavigate();
+    navigate("/");
+    setOpenModal({
+      ...openModal,
+      open: false,
+    });
+    setProductsList(products);
+    setIsDisabled(true);
+    setProductQuantity([]);
+    setSelected([]);
+  };
   return (
     <>
       <div className="card">
@@ -15,6 +36,7 @@ const CardSuppliers = () => {
             <button
               className="card_heading_icon_container_btn_x"
               style={{ cursor: "pointer", marginLeft: "auto" }}
+              onClick={cancelProduct}
             >
               <svg
                 width="20"
@@ -44,7 +66,7 @@ const CardSuppliers = () => {
               </svg>
             </button>
           </div>
-          <SearchInput openModal={openModal} />
+          <SearchInput />
         </div>
         <hr style={{ marginTop: "24px" }} />
         <SupplierList />

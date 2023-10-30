@@ -1,7 +1,61 @@
-const SearchInput = ({ openModal }) => {
+import { useState, useContext } from "react";
+import { FormContext } from "../context/FormContext";
+FormContext;
+import suppliers from "../json/suppliers";
+import products from "../json/products";
+
+const SearchInput = () => {
+  const {
+    openModal,
+    productsList,
+    setProductsList,
+    setSupplierList,
+    supplierList,
+  } = useContext(FormContext);
+  const [productInputVal, setProductInputVal] = useState("");
+  const [supplierInputVal, setSupplierInputVal] = useState("");
+  const [oldList, setOldList] = useState(productsList);
+
+  const searchSupplier = (e) => {
+    setSupplierInputVal(() => {
+      const value = e.target.value.trim();
+      setSupplierList(() => {
+        if (value !== "") {
+          const arr = [...supplierList];
+          const findSupplier = arr?.filter((supplier) =>
+            supplier.name.toLowerCase().includes(value.toLowerCase())
+          );
+          return findSupplier;
+        } else {
+          return suppliers;
+        }
+      });
+      return value;
+    });
+  };
+
+  const searchProducts = (e) => {
+    setProductInputVal(() => {
+      const value = e.target.value.trim();
+      setProductsList(() => {
+        if (value !== "") {
+          const arr = [...productsList];
+          const findProducts = arr?.filter((supplier) =>
+            supplier.name.toLowerCase().includes(value.toLowerCase())
+          );
+          return findProducts;
+        } else {
+          return oldList;
+        }
+      });
+      return value;
+    });
+  };
+
   return (
     <>
-      {openModal ? (
+      {openModal.open ? (
+        /* for products  */
         <div className="search_input_container">
           <div className="search_input_container_icon">
             <svg
@@ -27,9 +81,15 @@ const SearchInput = ({ openModal }) => {
               />
             </svg>
           </div>
-          <input type="text" placeholder="Search products" />
+          <input
+            type="text"
+            placeholder="Search products"
+            value={productInputVal}
+            onChange={searchProducts}
+          />
         </div>
       ) : (
+        /* for suppliers  */
         <div className="search_input_container">
           <div className="search_input_container_icon">
             <svg
@@ -55,7 +115,12 @@ const SearchInput = ({ openModal }) => {
               />
             </svg>
           </div>
-          <input type="text" placeholder="Search supplier" />
+          <input
+            type="text"
+            placeholder="Search supplier"
+            onChange={searchSupplier}
+            value={supplierInputVal}
+          />
         </div>
       )}
     </>

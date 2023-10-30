@@ -7,9 +7,15 @@ import products from "../json/products";
 import { useNavigate } from "react-router-dom";
 
 const CardProducts = () => {
-  const { openModal, setOpenModal, setProductsList, setProductQuantity,setIsDisabled } =
-    useContext(FormContext);
-    const navigate = useNavigate();
+  const {
+    openModal,
+    setOpenModal,
+    setProductsList,
+    setProductQuantity,
+    setIsDisabled,
+    setSelected,
+  } = useContext(FormContext);
+  const navigate = useNavigate();
   const goBack = () => {
     setOpenModal({
       name: "Browse",
@@ -17,9 +23,18 @@ const CardProducts = () => {
     });
     navigate("/");
     setProductsList(products);
-    setSelected([]);
+    setIsDisabled(true);
+  };
+  const cancelProduct = () => {
+    navigate("/");
+    setOpenModal({
+      ...openModal,
+      open: false,
+    });
+    setProductsList(products);
+    setIsDisabled(true);
     setProductQuantity([]);
-    setIsDisabled(true)
+    setSelected([]);
   };
   return (
     <>
@@ -61,6 +76,7 @@ const CardProducts = () => {
             <button
               className="card_heading_icon_container_btn_x"
               style={{ cursor: "pointer", marginLeft: "auto" }}
+              onClick={cancelProduct}
             >
               <svg
                 width="20"
@@ -90,7 +106,7 @@ const CardProducts = () => {
               </svg>
             </button>
           </div>
-          <SearchInput openModal={openModal} />
+          <SearchInput />
         </div>
         <hr style={{ marginTop: "24px" }} />
         <ProductList />

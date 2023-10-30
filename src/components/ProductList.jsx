@@ -13,11 +13,9 @@ const ProductList = () => {
     selected,
     setSelected,
   } = useContext(FormContext);
-  // state count 0
   const [childProducts, setChildProducts] = useState([]);
   const [inputValue, setInputValue] = useState([]);
   const [isChecked, setIsChecked] = useState([]);
-
   const inputRef = useRef(null);
 
   const getProduct = (id) => {
@@ -70,11 +68,6 @@ const ProductList = () => {
         });
       } else {
         _previousState[index] = !_previousState[index];
-        if (_previousState[index] === false) {
-          console.log(false);
-        } else {
-          console.log(true);
-        }
       }
       return _previousState;
     });

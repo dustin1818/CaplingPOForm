@@ -16,6 +16,7 @@ const SupplierList = () => {
         modalName: supplierList.map((supplier) =>
           supplier.id === id ? supplier.name : ""
         ),
+        open: true,
       });
       setProductsList((prevState) => {
         const productID = prevState?.data.filter(
